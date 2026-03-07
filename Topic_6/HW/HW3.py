@@ -22,7 +22,6 @@ def visualize_directory(directory: Path, indent: int = 0) -> None:
         directory: об'єкт Path, що вказує на поточну директорію.
         indent:    рівень відступу для вкладених елементів.
     """
-    # Отримуємо вміст директорії і сортуємо: спочатку директорії, потім файли
     try:
         entries = sorted(directory.iterdir())
     except PermissionError:
@@ -34,17 +33,11 @@ def visualize_directory(directory: Path, indent: int = 0) -> None:
         prefix = "  " * indent
 
         if entry.is_dir():
-            # Директорії — яскраво-синій, жирний
             print(f"{prefix}{Fore.CYAN}{Style.BRIGHT}{entry.name}/")
-            # Рекурсивний виклик для піддиректорії
             visualize_directory(entry, indent + 1)
-
         elif entry.is_file():
-            # Файли — зелений
             print(f"{prefix}{Fore.GREEN}{entry.name}")
-
         else:
-            # Символічні посилання або інші об'єкти — жовтий
             print(f"{prefix}{Fore.YELLOW}{entry.name} (посилання або інший тип)")
 
 
